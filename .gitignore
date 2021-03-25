@@ -28,3 +28,4 @@ Homestead.json
 # Laravel IDE helper
 *.meta.*
 _ide_*
+/.env.riscc
