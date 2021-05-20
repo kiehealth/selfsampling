@@ -57,7 +57,7 @@
   @endif
   
   <a href='{{action('BankIDController@bankidlogin', ['type' => 'admin'])}}' class="btn btn-lg btn-primary btn-block" role="button">Logga in via Bank ID</a>
-  <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+  {{--<p class="mt-5 mb-3 text-muted">&copy; 2020</p>--}}
 </div>
 </body>
 </html>

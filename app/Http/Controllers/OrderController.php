@@ -121,7 +121,7 @@ class OrderController extends Controller
                    if($request->has('type') && $request->type === "admin"){
                        return back()->withError('The user with personnummer ' . $request->input('pnr').' does not exist. Please register the user before you can place an order.')->withInput();
                    }
-                   return back()->withError("Något gick fel!");
+                   return back()->withError("Något gick fel! Beställning är endast möjlig för kvinnor som har fått en inbjudan att beställa.");
                    //return view('home',['order_not_allowed' => "You cannot order."]);
                }
                 
