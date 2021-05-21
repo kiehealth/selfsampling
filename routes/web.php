@@ -37,6 +37,10 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+Route::get('/faqs', function () {
+    return view('faqs');
+});
+
 
 /*
 Route::post('users', 'UserController@store');

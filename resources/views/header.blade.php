@@ -5,7 +5,10 @@
 <nav class="my-2 my-md-0 mr-md-3">
 	<a class="p-2 text-primary {{ (request()->is('/')) ? 'active' : '' }}" href="{{url('/')}}" title="Hem">Hem</a>
 	<a class="p-2 text-primary {{ (request()->is('*profile')) ? 'active' : '' }}" href="{{url('/profile')}}" title="Mina Sidor">Mina Sidor</a>
+	<a class="p-2 text-primary {{ (request()->is('*faqs')) ? 'active' : '' }}" href="{{url('/faqs')}}" title="Vanliga Frågor">Vanliga Frågor</a>
 </nav>
+
+
 
 @if(session()->has('userattributes') && session()->has('role') && session()->get('role')===config('constants.roles.USER_ROLE'))
 
@@ -18,7 +21,5 @@
     <a class="dropdown-item" href="{{action('BankIDController@bankidlogout', ['sessionId' => session('grandidsession'), 'type' => 'user'])}}">Sign out</a>
   </div>
 </div>
-@else
-<a class="btn btn-outline-primary" href="{{action('BankIDController@bankidlogin', ['type' => 'user'])}}"
- title="Logga in">Mobilt BankID</a>
 @endif
+

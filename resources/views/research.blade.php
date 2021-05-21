@@ -54,7 +54,7 @@
 		för studien; professor Joakim Dillner, Karolinska Institutet (<a href="mailto:joakim.dillner@ki.se">joakim.dillner@ki.se</a>).
 	</p>
 	<p class="lead small">Ansvarig för studien är professor Joakim Dillner, Karolinska Institutet 
-		(0724682460; <a href="mailto:joakim.dillner@ki.se">joakim.dillner@ki.se</a>).
+		({{--0724682460;--}}<a href="mailto:joakim.dillner@ki.se">joakim.dillner@ki.se</a>).
 	</p>
     <h1 class="display-4 text-center">Samtycke till att delta i studien</h1>
     <p class="lead">Jag har fått skriftlig informationen om studien. Jag samtycker till att delta i 
@@ -63,10 +63,10 @@
     	om mig behandlas samt att mina prover sparas i en biobank på det sätt som beskrivs.
 	</p>
 	<p class="lead text-center">
-	<a class="btn btn-primary consent-btn" href="order">JAG HAR LÄST, SAMTYCKT OCH VILL BESTÄLLA</a>
+	<a class="btn btn-primary consent-btn btn-block" href="order">Jag har läst, samtyckt och vill beställa</a>
 	</p>
 	<p class="lead text-center">
-	<a class="btn btn-danger consent-btn" href="unsubscribe">JAG SAMTYCKER INTE OCH SKA INTE BLI KONTAKTAD</a>
+	<a class="btn btn-secondary consent-btn btn-block" href="unsubscribe">Jag samtycker inte och ska inte bli kontaktad</a>
 	</p>
 </div>
 

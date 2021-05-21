@@ -6,7 +6,9 @@
 @if(session()->has('user_id') && session()->has('role') && session()->get('role')===config('constants.roles.USER_ROLE'))
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto research">
-	<h1 class="display-4 text-center">Du är inloggad med Mobilt BankID</h1>
+	<h1 class="display-4 text-center">Välkommen till Forskningsprojekt om SMS-påminnelser och Självprovtagning kan öka deltagandet
+	 i Gynekologisk Cellprovtagning
+	</h1>
 	
 	@if(session()->has('order_created'))
     <div class="alert alert-success text-justify">
@@ -15,13 +17,25 @@
 	@endif
 	
 	@if(!session()->has('order_created'))
-	<p class="lead">Beställa provtagningsmaterial med svarskuvert samt instruktioner genom knappen nedan.
+	<p class="lead mt-4">Du är inloggad med Mobilt BankID. {{--Beställa provtagningsmaterial med svarskuvert samt 
+	instruktioner genom knappen nedan.--}} Klicka på knappen nedan för att beställa hem ett självprovtagningskit!
 	</p>
 	<form class="text-center" action="{{action('OrderController@orderKit', ['user_id' => session('user_id')])}}" method="post">
         @csrf
         <input type="hidden" name="user_id" value = "{{ session('user_id') }}" >
         <button type="submit" class="btn btn-primary btn-lg">Beställa</button>
     </form>
+    <p class="lead mt-4">
+    	Du kan även:
+    </p>
+    <ul>
+    	<li class="order">uppdatera din hemadress och telefonnummer</li>
+    	<li class="order">kontrollera din beställning</li>
+    	<li class="order">se ditt analysresultat (när det blir klart) under fliken <a href="{{url('/profile')}}" title="Mina Sidor">Mina Sidor</a></li>
+    </ul>
+    <p class="lead mt-4">
+    	För mer information klicka på <a href="{{url('/faqs')}}" title="Vanliga Frågor">Vanliga Frågor</a>
+    </p>
     @endif
 </div>
 

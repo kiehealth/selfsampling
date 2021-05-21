@@ -102,3 +102,7 @@ p.text-left.back a {
 #ordersAccordion h4{
 	padding: 0.75rem;
 }
+
+.order{
+	font-weight: 300;
+}
