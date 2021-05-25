@@ -42,7 +42,7 @@
 	</p>
 </div>
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto research border-top">	
-	<h1 class="display-4 text-center">Avsluta utan inlognning</h1>
+	<h1 class="display-4 text-center">Avsluta utan inloggning</h1>
 
     @if(session()->has('unsubscribed'))
     <div class="alert alert-success text-justify">
