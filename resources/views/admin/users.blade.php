@@ -147,9 +147,11 @@
                 { 
                     "data": null,
                     "render": function (data, type, row, meta) {
-                        return (row.first_name !== null)?row.first_name:"" + ' ' 
-                                + (row.last_name !== null)?row.last_name:"";
+                        var first_name = (row.first_name !== null)?row.first_name:'';
+                        var last_name = (row.last_name !== null)?row.last_name:'';
+                        return first_name+' '+last_name;
                     }
+                	
                 },
                 { "data": "pnr" },
                 { 
@@ -191,7 +193,6 @@
                         var baseurl = "{{url("/")}}";
                         var editurl = baseurl+'/admin/users/'+row.id+'/edit';
                         var deleteurl = baseurl+'/admin/users/'+row.id;
-						console.log(deleteurl);
 	
                         
                         return '<a href="'+editurl+'">\
