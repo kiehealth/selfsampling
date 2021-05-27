@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -50,6 +51,27 @@ class User extends Model
     public function samples()
     {
         return $this->hasManyThrough(Sample::class, Kit::class);
+    }
+    
+    
+    /**
+     * Get the formatted created_at timestamp.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getCreatedAtAttribute($value) {
+        return Carbon::parse($value)->timezone('Europe/Stockholm')->toDateTimeString();
+    }
+    
+    /**
+     * Get the formatted updated_at timestamp.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getUpdatedAtAttribute($value) {
+        return Carbon::parse($value)->timezone('Europe/Stockholm')->toDateTimeString();
     }
    
 }

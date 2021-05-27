@@ -52,7 +52,21 @@ class UserController extends Controller
     {
         //
         //return User::all();
-        return view('admin.users', ['users' => User::all()]);
+        //dd(User::all('first_name', 'last_name')->toJson());
+        //return view('admin.users', ['users' => User::all()]);
+        return view('admin.users');
+    }
+    
+    /**
+     * Get the collection of users as JSON.
+     *
+     * @return string
+     */
+    public function getUsers()
+    {
+        return User::withCount('orders')->get();
+        //return User::all('first_name', 'last_name', 'pnr', 'phonenumber', 'roles', 
+             //           'street', 'zipcode', 'city', 'country', '')->toJson();
     }
 
     /**

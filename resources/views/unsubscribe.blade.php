@@ -28,9 +28,9 @@
 
 @else
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto research">
-	<h1 class="display-4 text-center">Avsluta deltagandet via logga in med Mobilt BankID</h1>
+	<h1 class="display-4 text-center">Avsluta deltagandet genom att logga in med Mobilt BankID</h1>
 	<p class="lead">Om du avslutar kommer vi inte kontakta dig längre. Däremot om du ångrar dig, behöver du bara
-		samtycker igen på hemsidan och besätlla självprovtagningskit.
+		samtycka igen på hemsidan och beställa självprovtagningskit.
 	</p>
 	
 	@if(session('user_not_found'))
@@ -67,7 +67,7 @@
     @if(!session()->has('unsubscribed'))
     <p class="lead">Om du inte har Mobilt BankID eller vill avsluta utan inloggning 
 		kan du vänligen ange ditt personnummer i fältet nedan. Om du avslutar kommer vi inte kontakta dig längre. 
-		Däremot om du ångrar dig, behöver du bara samtycker igen på hemsidan och besätlla självprovtagningskit.
+		Däremot om du ångrar dig, behöver du bara samtycka igen på hemsidan och beställa självprovtagningskit.
 	</p>
 	<form class="form-inline justify-content-center" action="{{action('UserController@unsubscribe', ['type' => 'pnr'])}}" method="post">
         @csrf

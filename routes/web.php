@@ -87,6 +87,7 @@ Route::post('admin/createUser', 'UserController@store');
 Route::get('admin/importUser', 'UserController@import');
 Route::post('admin/importUser', 'UserController@importUserSave');
 Route::get('admin/users', 'UserController@index');
+Route::get('admin/getUsers', 'UserController@getUsers');
 Route::get('admin/users/{id}/edit', 'UserController@edit');
 Route::put('admin/users/{id}', 'UserController@update');
 Route::delete('admin/users/{id}', 'UserController@destroy');

@@ -16,7 +16,7 @@
 
     <div id="collapseOne" class="collapse" data-parent="#faqsAccordion">
       <div class="card-body">
-      	  Se instruktionen som skickas med kitet hem till dig: <a target="_blank" href="{{asset('storage/files/Screening_hpv_original_rev_201126-persetiketthpåse.pdf')}}">instrucktion filen</a>
+      	  Se instruktionen som skickas med kitet hem till dig: <a target="_blank" href="{{asset('storage/files/Screening_hpv_original_rev_201126-persetiketthpåse.pdf')}}">Instruktionsfil för självprovtagning HPV</a>
       </div>
     </div>
   </div>
@@ -113,6 +113,38 @@
     <div id="collapseSeven" class="collapse" data-parent="#faqsAccordion">
       <div class="card-body">
       	Skicka SMS vardagar till 0725836709, alternativt maila <a href="mailto:hpvcenter@ki.se">hpvcenter@ki.se</a>	
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-justify" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+          Kostar det något att delta i studien?
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseEight" class="collapse" data-parent="#faqsAccordion">
+      <div class="card-body">
+      	Nej, deltagande är gratis. Studien finansieras av forskningsanslag från Cancerfonden.	
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="card-header">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-justify" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+          Vilka tillstånd har studien?
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseNine" class="collapse" data-parent="#faqsAccordion">
+      <div class="card-body">
+      	Studien utförs med tillstånd från Etikprövningsmyndigheten.	
       </div>
     </div>
   </div>
