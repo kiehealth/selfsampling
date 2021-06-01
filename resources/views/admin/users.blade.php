@@ -182,7 +182,7 @@
                 { 
                     "data": "consent",
                     "render": function (data, type, row, meta) {
-                        return (data == 1)?"Yes":"No";
+						return (data == null)?"":((data == 1)?"Yes":"No");
                 	}
                 },
                 { "data": "created_at" },
