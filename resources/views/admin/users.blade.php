@@ -123,6 +123,7 @@
         $('#users_table').DataTable({
             dom: 'Blfrtip',
             "scrollX": true,
+            "deferRender": true,
             "ajax": {
 				"url" : "{{action('UserController@getUsers')}}",
 				/*
