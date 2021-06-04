@@ -92,6 +92,7 @@ Route::get('admin/users/{id}/edit', 'UserController@edit');
 Route::put('admin/users/{id}', 'UserController@update');
 Route::delete('admin/users/{id}', 'UserController@destroy');
 Route::get('admin/orders', 'OrderController@index');
+Route::get('admin/getOrders', 'OrderController@getOrders');
 Route::get('admin/createOrder', 'OrderController@create');
 Route::delete('admin/orders/{id}', 'OrderController@destroy');
 Route::get('admin/importOrder', 'OrderController@import');

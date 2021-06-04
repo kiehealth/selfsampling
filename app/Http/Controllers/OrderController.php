@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Personnummer\Personnummer;
 use Personnummer\PersonnummerException;
+use Yajra\DataTables\DataTables;
 use App\Models\Order;
 use App\Repositories\UserRepository;
 use App\Models\User;
@@ -50,8 +51,28 @@ class OrderController extends Controller
         if ((Session::get('grandidsession')===null)){
             return  view('admin.login');
         }
-        return view('admin.orders', ['orders' => Order::all()]);
+        return view('admin.orders'/*, ['orders' => Order::all()]*/);
        
+    }
+    
+    /**
+     * Get the collection of orders.
+     *
+     * @return string
+     */
+    public function getOrders()
+    {
+        
+        $orders =  Order::with(['user', 'kit', 'kit.sample']);
+        //return User::select(['id','first_name','created_at','updated_at'])->get();
+        
+        return DataTables::of($orders)
+                ->addIndexColumn()
+                ->addColumn('name', function($row){
+                    return $row->user->first_name." ".$row->user->last_name;
+                })
+                ->make();
+        
     }
 
     /**

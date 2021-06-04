@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Sample extends Model
@@ -34,5 +35,25 @@ class Sample extends Model
     public function kit()
     {
         return $this->belongsTo('App\Models\Kit');
+    }
+    
+    /**
+     * Get the formatted created_at timestamp.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getCreatedAtAttribute($value) {
+        return Carbon::parse($value)->timezone('Europe/Stockholm')->toDateTimeString();
+    }
+    
+    /**
+     * Get the formatted updated_at timestamp.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getUpdatedAtAttribute($value) {
+        return Carbon::parse($value)->timezone('Europe/Stockholm')->toDateTimeString();
     }
 }

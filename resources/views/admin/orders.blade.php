@@ -65,6 +65,7 @@
             </tr>
         </thead>
         <tbody>
+        {{--
         @foreach ($orders as $order)
             <tr>
                 <td>{{ $loop->iteration }}</td>
@@ -143,6 +144,7 @@
                 </td>
             </tr>
         @endforeach
+        --}}
         </tbody>
     </table>
     
@@ -156,6 +158,20 @@
         $('#orders_table').DataTable({
             dom: 'Blfrtip',
             "scrollX": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+				"url" : "{{action('OrderController@getOrders')}}",
+				/*
+				By default DataTables will look for the property 'data' 
+				(or aaData for compatibility with DataTables 1.9-) when obtaining data 
+				from an Ajax source. Option 'dataSrc' allows that property to be changed and named
+				anything else. Note that if your Ajax source simply returns an array of data 
+				to display, rather than an object or array in an object, set this parameter to be an 
+				empty string. 
+				*/
+				"dataSrc" : ""
+            },
             buttons: [
                 'colvis', 
                 {
