@@ -71,7 +71,75 @@ class OrderController extends Controller
                 ->addColumn('name', function($row){
                     return $row->user->first_name." ".$row->user->last_name;
                 })
-                ->make();
+                ->addColumn('order_status', function($row){
+                    if ($row->status===config('constants.kits.KIT_REGISTERED'))
+                        return $row->status.' '.(($row->kit !== null)?$row->kit->created_at:"");
+                    elseif ($row->status===config('constants.kits.KIT_DISPATCHED'))
+                        return $row->status.' '.(($row->kit !== null)?$row->kit->kit_dispatched_date:"");
+                    elseif ($row->status===config('constants.samples.SAMPLE_RECEIVED'))
+                        return $row->status.' '.(($row->kit !== null)?$row->kit->sample_received_date:"");
+                    elseif ($row->status===config('constants.samples.SAMPLE_REGISTERED'))
+                        return $row->status.' '.(($row->kit !== null && $row->kit->sample !== null)?$row->kit->sample->sample_registered_date:"");
+                    elseif ($row->status===config('constants.results.RESULT_RECEIVED'))
+                        return $row->status.' '.(($row->kit !== null && $row->kit->sample !== null)?$row->kit->sample->reporting_date:"");
+                    else return $row->status;
+                })
+                ->addColumn('action', function($row){
+                    
+                    $action_url = "";
+                    
+                    if($row->kit !== null){
+                        $kit_id = $row->kit->id;
+                        //edit
+                        $action_url .= '<a href="'.url("/admin/kits/$kit_id/edit/viaord").'" >'.
+                            '<button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Edit Kit Information">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              				<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+              				<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            				</svg>
+            				</button>
+            				</a>';
+                        //delete
+                        $action_url .= '<form action="'.action('KitController@destroy', ['id' => $row->kit->id]). '" method="post" onsubmit="return confirm(\'Are you sure you want to delete the kit for this order?\');">'.
+            				//@csrf equivalent html for blade directive @csrf
+                            '<input type="hidden" name="_token" value="'.csrf_token(). '" />'.
+                            //@method("DELETE") equivalent html for blade directive @method
+                            '<input type="hidden" name="_method" value="DELETE">
+            				<button class="btn btn-outline-danger" type="submit" data-toggle="tooltip" title="Delete Kit for this order">
+                            	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-minus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              		<path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z"/>
+                              		<path fill-rule="evenodd" d="M5.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
+                            	</svg>
+                            </button>
+                            </form>';
+                    }
+                    else{
+                        $action_url .= '<a href="'.url("/admin/orders/$row->id/registerKit").'" >'.
+                            '<button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Register Kit">
+                            	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            		<path fill-rule="evenodd" d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z"/>
+                              		<path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"/>
+                            	</svg>
+            				</button>
+            				</a>';
+                    }
+                    
+                    $action_url .= '<form action="'.action('OrderController@destroy', ['id' => $row->id]). '" method="post" onsubmit="return confirm(\'Are you sure you want to delete the order?\');">'.
+        				//@csrf
+        				//@method("DELETE")
+                        '<input type="hidden" name="_token" value="'.csrf_token(). '" />'.
+                        '<input type="hidden" name="_method" value="DELETE">
+        				<button class="btn btn-outline-danger" type="submit" data-toggle="tooltip" title="Delete Order">
+            				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            	<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            	<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+        				</button>
+        				</form>';
+                    
+                    return $action_url;
+                })
+                ->make(true);
         
     }
 

@@ -123,7 +123,7 @@
         $('#users_table').DataTable({
             dom: 'Blfrtip',
             "scrollX": true,
-            "deferRender": true,
+            //"deferRender": true, //does not work when serial column is sortable true.
             "ajax": {
 				"url" : "{{action('UserController@getUsers')}}",
 				/*
@@ -139,7 +139,7 @@
             "columns": [
             	{ 
                 	"data": null,
-                	"sortable": false, 
+                	"sortable": true, 
             	    "render": function (data, type, row, meta) {
             	                 return meta.row + meta.settings._iDisplayStart + 1;
             	     }  

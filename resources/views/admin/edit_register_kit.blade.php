@@ -19,7 +19,7 @@
             @endif
     		
         	<div class="card-body edit-kit">
-        	<form method="post" action="{{action('KitController@update', ['id' => $kit->id])}}">
+        	<form method="post" action="{{action('KitController@update', ['id' => $kit->id, 'type' => 'viaord'])}}">
             	@csrf
             	@method("PUT")
                 <div class="form-group">    
