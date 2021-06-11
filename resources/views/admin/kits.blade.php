@@ -50,6 +50,7 @@
             </tr>
         </thead>
         <tbody>
+        {{--
         @foreach ($kits as $kit)
             <tr>
                 <td>{{ $loop->iteration }}</td>
@@ -102,6 +103,7 @@
                 </td>
             </tr>
         @endforeach
+        --}}
         </tbody>
     </table>
     
@@ -112,8 +114,49 @@
 
     $(document).ready(function() {
         $('#kits_table').DataTable({
-            dom: 'Blfrtip',
+            "dom": 'Blfrtip',
             "scrollX": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "stateSaveParams": function(settings, data) {
+            	//do not stateSave invisible columns, i.e. let the invisible columns remain invisible 
+            	//even after reload.
+            	data.columns.forEach(function(column) {
+            		delete column.visible;
+            	});
+            },
+            "ajax": {
+				"url" : "{{action('KitController@getKits')}}",
+				/*
+				By default DataTables will look for the property 'data' 
+				(or aaData for compatibility with DataTables 1.9-) when obtaining data 
+				from an Ajax source. Option 'dataSrc' allows that property to be changed and named
+				anything else. Note that if your Ajax source simply returns an array of data 
+				to display, rather than an object or array in an object, set this parameter to be an 
+				empty string. 
+				*/
+				//"dataSrc" : ""
+            },
+            "columns": [
+            	{data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+            	{data: 'id', name: 'id'},
+                {data: 'order_id', name: 'order_id'},
+                {data: 'sample_id', name: 'sample_id'},
+                {data: 'barcode', name: 'barcode'},
+                {data: 'name', name: 'name'},
+                {data: 'user.pnr', name: 'user.pnr'},
+                {data: 'user.phonenumber', name: 'user.phonenumber'},
+                {data: 'user.street', name: 'user.street'},
+                {data: 'user.zipcode', name: 'user.zipcode'},
+                {data: 'user.city', name: 'user.city'},
+                {data: 'user.country', name: 'user.country'},
+                {data: 'kit_dispatched_date', name: 'kit_dispatched_date'},
+                {data: 'sample_received_date', name: 'sample_received_date'},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'updated_at', name: 'updated_at'},
+                {data: 'action', name: 'action', orderable: false, searchable: false}
+            ],
             buttons: [
                 'colvis', 
                 {
@@ -156,6 +199,7 @@
 
                     }
             ],
+            "lengthMenu": [ [10, 25, 50, 100, 500, 1000, 5000, -1], [10, 25, 50, 100, 500, 1000, 5000, "All"] ],
             "columnDefs": [
                 { "visible": false, "targets": 1 }
             ]

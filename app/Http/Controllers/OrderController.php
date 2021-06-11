@@ -63,7 +63,10 @@ class OrderController extends Controller
     public function getOrders()
     {
         
-        $orders =  Order::with(['user', 'kit', 'kit.sample']);
+        //$orders =  Order::with(['user', 'kit', 'kit.sample']);
+        $orders =  Order::with(['user' => function ($query) {
+            $query->select('first_name', 'last_name');
+        }])->with(['kit', 'kit.sample']);
         //return User::select(['id','first_name','created_at','updated_at'])->get();
         
         return DataTables::of($orders)
@@ -71,6 +74,12 @@ class OrderController extends Controller
                 ->addColumn('name', function($row){
                     return $row->user->first_name." ".$row->user->last_name;
                 })
+                /*->filterColumn('user.name', function ($query, $keyword) {
+                    //$query->with(array('user' => function($query) use ($keyword){
+                        //dd($keyword);
+                        return $query->whereRaw("CONCAT(users.first_name, ' ',  users.last_name) like ?", ["%{$keyword}%"]);
+                    //}));
+                })*/
                 ->addColumn('order_status', function($row){
                     if ($row->status===config('constants.kits.KIT_REGISTERED'))
                         return $row->status.' '.(($row->kit !== null)?$row->kit->created_at:"");
@@ -90,7 +99,7 @@ class OrderController extends Controller
                     
                     if($row->kit !== null){
                         $kit_id = $row->kit->id;
-                        //edit
+                        //edit kit
                         $action_url .= '<a href="'.url("/admin/kits/$kit_id/edit/viaord").'" >'.
                             '<button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Edit Kit Information">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -99,7 +108,7 @@ class OrderController extends Controller
             				</svg>
             				</button>
             				</a>';
-                        //delete
+                        //delete kit
                         $action_url .= '<form action="'.action('KitController@destroy', ['id' => $row->kit->id]). '" method="post" onsubmit="return confirm(\'Are you sure you want to delete the kit for this order?\');">'.
             				//@csrf equivalent html for blade directive @csrf
                             '<input type="hidden" name="_token" value="'.csrf_token(). '" />'.
@@ -114,6 +123,7 @@ class OrderController extends Controller
                             </form>';
                     }
                     else{
+                        //register kit
                         $action_url .= '<a href="'.url("/admin/orders/$row->id/registerKit").'" >'.
                             '<button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Register Kit">
                             	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -124,6 +134,7 @@ class OrderController extends Controller
             				</a>';
                     }
                     
+                    //delete order
                     $action_url .= '<form action="'.action('OrderController@destroy', ['id' => $row->id]). '" method="post" onsubmit="return confirm(\'Are you sure you want to delete the order?\');">'.
         				//@csrf
         				//@method("DELETE")

@@ -103,11 +103,13 @@ Route::get('admin/kits/{id}/edit/{type?}', 'KitController@edit')->where(['type' 
 Route::put('admin/kits/{id}/{type?}', 'KitController@update')->where(['type' => 'kits|viaord']);
 Route::delete('admin/kits/{id}', 'KitController@destroy');
 Route::get('admin/kits', 'KitController@index');
+Route::get('admin/getKits', 'KitController@getKits');
 Route::get('admin/importKit', 'KitController@import');
 Route::post('admin/importKit', 'KitController@importKitSave');
 Route::get('admin/kits/{id}/registerSample', 'SampleController@registerSample');
 Route::post('admin/kits/{id}/register', 'SampleController@register');
 Route::get('admin/samples', 'SampleController@index');
+Route::get('admin/getSamples', 'SampleController@getSamples');
 Route::get('admin/samples/{id}/edit', 'SampleController@edit');
 Route::put('admin/samples/{id}', 'SampleController@update');
 Route::delete('admin/samples/{id}', 'SampleController@destroy');

@@ -161,6 +161,13 @@
             "processing": true,
             "serverSide": true,
             "stateSave": true,
+            "stateSaveParams": function(settings, data) {
+            	//do not stateSave invisible columns, i.e. let the invisible columns remain invisible 
+            	//even after reload.
+            	data.columns.forEach(function(column) {
+            		delete column.visible;
+            	});
+            },
             "ajax": {
 				"url" : "{{action('OrderController@getOrders')}}",
 				/*
@@ -178,7 +185,7 @@
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
                 {data: 'user.pnr', name: 'user.pnr'},
-                {data: 'user.phonenumber', name: 'user.phone'},
+                {data: 'user.phonenumber', name: 'user.phonenumber'},
                 {data: 'user.street', name: 'user.street'},
                 {data: 'user.zipcode', name: 'user.zipcode'},
                 {data: 'user.city', name: 'user.city'},
@@ -231,7 +238,7 @@
 
                     }
             ],
-            "lengthMenu": [ [10, 25, 50, 100, 500, 1000, 5000, -1], [10, 25, 50, 100, 500, 1000, 5000, "All"] ]
+            "lengthMenu": [ [10, 25, 50, 100, 500, 1000, 5000, -1], [10, 25, 50, 100, 500, 1000, 5000, "All"] ],
             /*"columnDefs": [
                 { "visible": false, "targets": 1 }
             ]*/

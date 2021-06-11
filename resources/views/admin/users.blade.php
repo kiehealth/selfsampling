@@ -121,8 +121,18 @@
     	});
     	*/
         $('#users_table').DataTable({
-            dom: 'Blfrtip',
+            "dom": 'Blfrtip',
             "scrollX": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "stateSaveParams": function(settings, data) {
+            	//do not stateSave invisible columns, i.e. let the invisible columns remain invisible 
+            	//even after reload.
+            	data.columns.forEach(function(column) {
+            		delete column.visible;
+            	});
+            },
             //"deferRender": true, //does not work when serial column is sortable true.
             "ajax": {
 				"url" : "{{action('UserController@getUsers')}}",
@@ -134,8 +144,27 @@
 				to display, rather than an object or array in an object, set this parameter to be an 
 				empty string. 
 				*/
-				"dataSrc" : ""
+				//"dataSrc" : ""
             },
+            "columns": [
+            	{data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+            	{data: 'id', name: 'id'},
+            	{data: 'name', name: 'name'},
+            	{data: 'pnr', name: 'pnr'},
+                {data: 'phonenumber', name: 'phonenumber'},
+                {data: 'roles', name: 'roles'},
+                {data: 'street', name: 'street'},
+                {data: 'zipcode', name: 'zipcode'},
+                {data: 'city', name: 'city'},
+                {data: 'country', name: 'country'},
+                {data: 'orders_count', name: 'orders_count', searchable: false},
+                {data: 'consent_to_study', name: 'consent_to_study'},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'updated_at', name: 'updated_at'},
+                {data: 'action', name: 'action', orderable: false, searchable: false}
+            ],
+            /*
+            was using when loading all the data at once and performing client-side processing (serverSide: false by default)
             "columns": [
             	{ 
                 	"data": null,
@@ -156,7 +185,7 @@
                 },
                 { "data": "pnr" },
                 { 
-                    "data": "phone",
+                    "data": "phonenumber",
                     "defaultContent": ""
                 },
                 { 
@@ -220,7 +249,7 @@
                 },
                 
             ],
-             
+            */
             buttons: [
                 'colvis', 
                 {
@@ -263,6 +292,7 @@
 
                     }
             ],
+            "lengthMenu": [ [10, 25, 50, 100, 500, 1000, 5000, -1], [10, 25, 50, 100, 500, 1000, 5000, "All"] ],
             "columnDefs": [
                 { "visible": false, "targets": 1 }
             ]

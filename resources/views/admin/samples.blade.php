@@ -49,6 +49,7 @@
             </tr>
         </thead>
         <tbody>
+        {{--
         @foreach ($samples as $sample)
             <tr>
                 <td>{{ $loop->iteration }}</td>
@@ -97,6 +98,7 @@
                 </td>
             </tr>
         @endforeach
+        --}}
         </tbody>
     </table>
     
@@ -107,8 +109,53 @@
 
     $(document).ready(function() {
         $('#samples_table').DataTable({
-            dom: 'Blfrtip',
+            "dom": 'Blfrtip',
             "scrollX": true,
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "stateSaveParams": function(settings, data) {
+            	//do not stateSave invisible columns, i.e. let the invisible columns remain invisible 
+            	//even after reload.
+            	data.columns.forEach(function(column) {
+            		delete column.visible;
+            	});
+            },
+            "ajax": {
+				"url" : "{{action('SampleController@getSamples')}}",
+				/*
+				By default DataTables will look for the property 'data' 
+				(or aaData for compatibility with DataTables 1.9-) when obtaining data 
+				from an Ajax source. Option 'dataSrc' allows that property to be changed and named
+				anything else. Note that if your Ajax source simply returns an array of data 
+				to display, rather than an object or array in an object, set this parameter to be an 
+				empty string. 
+				*/
+				//"dataSrc" : ""
+            },
+            "columns": [
+            	{data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+            	{data: 'id', name: 'id'},
+            	{data: 'sample_id', name: 'sample_id'},
+                {data: 'kit.order.id', name: 'kit.order.id'},//or kit.order_id
+                {data: 'kit_id', name: 'kit_id'},//or kit.id
+                {data: 'lab_id', name: 'lab_id'},
+                {data: 'name', name: 'name'},
+                {data: 'kit.user.pnr', name: 'kit.user.pnr'},
+                {data: 'sample_registered_date', name: 'sample_registered_date'},
+                {data: 'cobas_result', name: 'cobas_result'},
+                {data: 'cobas_analysis_date', name: 'cobas_analysis_date'},
+                {data: 'luminex_result', name: 'luminex_result'},
+                {data: 'luminex_analysis_date', name: 'luminex_analysis_date'},
+                {data: 'rtpcr_result', name: 'rtpcr_result'},
+                {data: 'rtpcr_analysis_date', name: 'rtpcr_analysis_date'},
+                {data: 'final_reporting_result', name: 'final_reporting_result'},
+                {data: 'reporting_date', name: 'reporting_date'},
+                {data: 'reported_via', name: 'reported_via'},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'updated_at', name: 'updated_at'},
+                {data: 'action', name: 'action', orderable: false, searchable: false}
+            ],
             buttons: [
                 'colvis', 
                 {
@@ -151,6 +198,7 @@
 
                     }
             ],
+            "lengthMenu": [ [10, 25, 50, 100, 500, 1000, 5000, -1], [10, 25, 50, 100, 500, 1000, 5000, "All"] ],
             "columnDefs": [
                 { "visible": false, "targets": 1 }
             ]

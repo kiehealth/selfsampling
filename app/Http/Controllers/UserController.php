@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Personnummer\Personnummer;
 use Personnummer\PersonnummerException;
+use Yajra\DataTables\DataTables;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Models\Order;
@@ -64,7 +65,57 @@ class UserController extends Controller
      */
     public function getUsers()
     {
-        return User::withCount('orders')->get();
+        //return User::withCount('orders')->get();
+        $users = User::withCount('orders');
+        //return $users->get();
+        
+        return DataTables::of($users)
+            ->addIndexColumn()
+            ->addColumn('name', function($row){
+                return $row->first_name." ".$row->last_name;
+            })
+            ->filterColumn('name', function ($query, $keyword) {
+                //dump($keyword);
+                return $query->whereRaw("CONCAT(first_name, ' ',  last_name) like ?", ["%{$keyword}%"]);
+            })
+            ->addColumn('consent_to_study', function($row){
+                return ($row->consent == null)?"":(($row->consent == 1)?"Yes":"No");
+            })
+            ->addColumn('action', function($row){
+                
+                $action_url = "";
+                
+                //edit user
+                $action_url .= '<a href="'.url("/admin/users/$row->id/edit").'" >'.
+                    '<button class="btn btn-outline-primary" type="button" data-toggle="tooltip" title="Edit User">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      				<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+      				<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+    				</svg>
+    				</button>
+            		</a>';
+                
+                
+                //delete user
+                $action_url .= '<form action="'.action('UserController@destroy', ['id' => $row->id]). '" method="post" onsubmit="return confirm(\'Are you sure you want to delete the user? All data related with the user will be deleted!\');">'.
+                    //@csrf equivalent html for blade directive @csrf
+                    '<input type="hidden" name="_token" value="'.csrf_token(). '" />'.
+                    //@method("DELETE") equivalent html for blade directive @method
+                    '<input type="hidden" name="_method" value="DELETE">
+                        <button class="btn btn-outline-danger" type="submit" data-toggle="tooltip" title="Delete User">
+        				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+        				</button>
+                    </form>';
+                
+                
+                return $action_url;
+            })
+            ->make(true);
+            
+        
         //return User::all('first_name', 'last_name', 'pnr', 'phonenumber', 'roles', 
              //           'street', 'zipcode', 'city', 'country', '')->toJson();
     }
