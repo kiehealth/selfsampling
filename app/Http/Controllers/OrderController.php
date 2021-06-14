@@ -63,10 +63,13 @@ class OrderController extends Controller
     public function getOrders()
     {
         
-        //$orders =  Order::with(['user', 'kit', 'kit.sample']);
-        $orders =  Order::with(['user' => function ($query) {
+        $orders =  Order::with(['user', 'kit', 'kit.sample']);
+        /*
+         * 
+         $orders =  Order::with(['user' => function ($query) {
             $query->select('first_name', 'last_name');
         }])->with(['kit', 'kit.sample']);
+        */
         //return User::select(['id','first_name','created_at','updated_at'])->get();
         
         return DataTables::of($orders)
@@ -77,9 +80,10 @@ class OrderController extends Controller
                 /*->filterColumn('user.name', function ($query, $keyword) {
                     //$query->with(array('user' => function($query) use ($keyword){
                         //dd($keyword);
-                        return $query->whereRaw("CONCAT(users.first_name, ' ',  users.last_name) like ?", ["%{$keyword}%"]);
+                        return $query->whereRaw("CONCAT(first_name, ' ',  last_name) like ?", ["%{$keyword}%"]);
                     //}));
-                })*/
+                })
+                */
                 ->addColumn('order_status', function($row){
                     if ($row->status===config('constants.kits.KIT_REGISTERED'))
                         return $row->status.' '.(($row->kit !== null)?$row->kit->created_at:"");
