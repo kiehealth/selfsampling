@@ -36,6 +36,8 @@
                 <th>Sample ID</th>
                 <th>Barcode</th>
                 <th>Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>Personnummer</th>
                 <th>Phone</th>
                 <th>Street</th>
@@ -145,6 +147,8 @@
                 {data: 'sample_id', name: 'sample_id'},
                 {data: 'barcode', name: 'barcode'},
                 {data: 'name', name: 'name'},
+                {data: 'user.first_name', name: 'user.first_name'},
+                {data: 'user.last_name', name: 'user.last_name'},
                 {data: 'user.pnr', name: 'user.pnr'},
                 {data: 'user.phonenumber', name: 'user.phonenumber'},
                 {data: 'user.street', name: 'user.street'},
@@ -201,7 +205,7 @@
             ],
             "lengthMenu": [ [10, 25, 50, 100, 500, 1000, 5000, -1], [10, 25, 50, 100, 500, 1000, 5000, "All"] ],
             "columnDefs": [
-                { "visible": false, "targets": 1 }
+                { "visible": false, "targets": [1, 6, 7] }
             ]
         });
     });

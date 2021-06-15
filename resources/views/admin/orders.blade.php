@@ -194,7 +194,7 @@
                 {data: 'user.zipcode', name: 'user.zipcode'},
                 {data: 'user.city', name: 'user.city'},
                 {data: 'user.country', name: 'user.country'},
-                {data: 'order_status', name: 'order_status'},
+                {data: 'order_status', name: 'status'},
                 {data: 'order_created_by', name: 'order_created_by'},
                 {data: 'created_at', name: 'created_at'},
                 {data: 'updated_at', name: 'updated_at'},

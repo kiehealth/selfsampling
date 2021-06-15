@@ -32,6 +32,8 @@
                 <th>Kit ID</th>
                 <th>LabID</th>
                 <th>Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>Personnummer</th>
                 <th>Sample Registered Date</th>
                 <th>Cobas Result</th>
@@ -141,6 +143,8 @@
                 {data: 'kit_id', name: 'kit_id'},//or kit.id
                 {data: 'lab_id', name: 'lab_id'},
                 {data: 'name', name: 'name'},
+                {data: 'kit.user.first_name', name: 'kit.user.first_name'},
+                {data: 'kit.user.last_name', name: 'kit.user.last_name'},
                 {data: 'kit.user.pnr', name: 'kit.user.pnr'},
                 {data: 'sample_registered_date', name: 'sample_registered_date'},
                 {data: 'cobas_result', name: 'cobas_result'},
@@ -200,7 +204,7 @@
             ],
             "lengthMenu": [ [10, 25, 50, 100, 500, 1000, 5000, -1], [10, 25, 50, 100, 500, 1000, 5000, "All"] ],
             "columnDefs": [
-                { "visible": false, "targets": 1 }
+                { "visible": false, "targets": [1, 7, 8] }
             ]
         });
     });
