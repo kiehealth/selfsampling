@@ -44,6 +44,8 @@
                 <th class="noexport">S.N</th>
                 <th>User ID</th>
                 <th>Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>Personnummer</th>
                 <th>Phone</th>
                 <th>Roles</th>
@@ -150,6 +152,8 @@
             	{data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
             	{data: 'id', name: 'id'},
             	{data: 'name', name: 'name'},
+            	{data: 'first_name', name: 'first_name'},
+                {data: 'last_name', name: 'last_name'},
             	{data: 'pnr', name: 'pnr'},
                 {data: 'phonenumber', name: 'phonenumber'},
                 {data: 'roles', name: 'roles'},
@@ -294,7 +298,7 @@
             ],
             "lengthMenu": [ [10, 25, 50, 100, 500, 1000, 5000, -1], [10, 25, 50, 100, 500, 1000, 5000, "All"] ],
             "columnDefs": [
-                { "visible": false, "targets": 1 }
+                { "visible": false, "targets": [1, 3, 4] }
             ]
         });
     });
