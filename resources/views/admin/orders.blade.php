@@ -182,6 +182,23 @@
 				*/
 				//"dataSrc" : ""
             },
+            /*
+            Heads Up! When searching/sorting for eager loaded models, 
+            your column name must be declared like relation.column/table.column
+
+            Important! To avoid ambiguous column name error, it is advised to declare your column name 
+            as table.column just like on how you declare it when using a join statements.
+
+            Example:
+            columns: [
+                {data: 'id', name: 'posts.id'},
+                {data: 'title', name: 'posts.title'},
+                {data: 'user.name', name: 'user.name'},
+                {data: 'user.email', name: 'user.email'},
+                {data: 'created_at', name: 'posts.created_at'},
+                {data: 'updated_at', name: 'posts.updated_at'}
+            ]
+            */
             "columns": [
             	{data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
                 {data: 'id', name: 'orders.id'},

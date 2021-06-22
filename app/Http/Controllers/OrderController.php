@@ -62,7 +62,10 @@ class OrderController extends Controller
      */
     public function getOrders()
     {
-        
+        /*
+        adding ->select('orders.*') in order to avoid ambuiguity, the order.id was being overidden by
+        user.id
+        */
         $orders =  Order::with(['user', 'kit', 'kit.sample'])->select('orders.*');
         /*
          * 
