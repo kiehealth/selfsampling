@@ -63,7 +63,7 @@ class OrderController extends Controller
     public function getOrders()
     {
         
-        $orders =  Order::with(['user', 'kit', 'kit.sample']);
+        $orders =  Order::with(['user', 'kit', 'kit.sample'])->select('orders.*');
         /*
          * 
          $orders =  Order::with(['user' => function ($query) {

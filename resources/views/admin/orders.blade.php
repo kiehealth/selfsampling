@@ -184,7 +184,7 @@
             },
             "columns": [
             	{data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-                {data: 'id', name: 'id'},
+                {data: 'id', name: 'orders.id'},
                 {data: 'name', name: 'name'},
                 {data: 'user.first_name', name: 'user.first_name'},
                 {data: 'user.last_name', name: 'user.last_name'},
@@ -194,10 +194,10 @@
                 {data: 'user.zipcode', name: 'user.zipcode'},
                 {data: 'user.city', name: 'user.city'},
                 {data: 'user.country', name: 'user.country'},
-                {data: 'order_status', name: 'status'},
-                {data: 'order_created_by', name: 'order_created_by'},
-                {data: 'created_at', name: 'created_at'},
-                {data: 'updated_at', name: 'updated_at'},
+                {data: 'order_status', name: 'orders.status'},
+                {data: 'order_created_by', name: 'orders.order_created_by'},
+                {data: 'created_at', name: 'orders.created_at'},
+                {data: 'updated_at', name: 'orders.updated_at'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ],
             buttons: [
