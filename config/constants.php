@@ -38,6 +38,7 @@ return [
             'HPV18' => 'HPV18',
             'ÖVRIGT_HPV' => 'ÖVRIGT_HPV',
             'FAILED' => 'FAILED',
+            'INVALID' => 'INVALID',
         ],
         
         'LUMINEX' => [
@@ -50,9 +51,17 @@ return [
         
         'RTPCR' => [
             'NEGATIVT' => 'NEGATIVT',
+            'HPV6' => 'HPV6',
+            'HPV11' => 'HPV11',
             'HPV16' => 'HPV16',
             'HPV18' => 'HPV18',
-            'ÖVRIGT_HPV' => 'ÖVRIGT_HPV',
+            'HPV31' => 'HPV31',
+            'HPV33' => 'HPV33',
+            'HPV35' => 'HPV35',
+            'HPV45' => 'HPV45',
+            'HPV52' => 'HPV52',
+            'HPV58' => 'HPV58',
+            //'ÖVRIGT_HPV' => 'ÖVRIGT_HPV',
             'FAILED' => 'FAILED',
         ],
         

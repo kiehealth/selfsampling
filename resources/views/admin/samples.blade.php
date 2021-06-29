@@ -35,6 +35,11 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Personnummer</th>
+                <th>Phone</th>
+                <th>Street</th>
+                <th>Zipcode</th>
+                <th>City</th>
+                <th>Country</th>
                 <th>Sample Registered Date</th>
                 <th>Cobas Result</th>
                 <th>Cobas Analysis Date</th>
@@ -146,6 +151,11 @@
                 {data: 'kit.user.first_name', name: 'kit.user.first_name'},
                 {data: 'kit.user.last_name', name: 'kit.user.last_name'},
                 {data: 'kit.user.pnr', name: 'kit.user.pnr'},
+                {data: 'kit.user.phonenumber', name: 'kit.user.phonenumber'},
+                {data: 'kit.user.street', name: 'kit.user.street'},
+                {data: 'kit.user.zipcode', name: 'kit.user.zipcode'},
+                {data: 'kit.user.city', name: 'kit.user.city'},
+                {data: 'kit.user.country', name: 'kit.user.country'},
                 {data: 'sample_registered_date', name: 'sample_registered_date'},
                 {data: 'cobas_result', name: 'cobas_result'},
                 {data: 'cobas_analysis_date', name: 'cobas_analysis_date'},
@@ -204,7 +214,7 @@
             ],
             "lengthMenu": [ [10, 25, 50, 100, 500, 1000, 5000, -1], [10, 25, 50, 100, 500, 1000, 5000, "All"] ],
             "columnDefs": [
-                { "visible": false, "targets": [1, 7, 8] }
+                { "visible": false, "targets": [1, 7, 8, 10, 11, 12, 13, 14] }
             ]
         });
     });
